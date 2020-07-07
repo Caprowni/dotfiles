@@ -1,0 +1,85 @@
+syntax on
+
+call plug#begin('~/.vim/plugged')
+
+"Zins
+Plug 'tpope/vim-fugitive'
+Plug 'mbbill/undotree'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'preservim/nerdtree'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'hashivim/vim-terraform'
+"Theming
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'gmoe/vim-espresso'
+Plug 'flazz/vim-colorschemes'
+Plug '/home/mpaulson/personal/vim-be-good'
+Plug 'morhetz/gruvbox'
+
+call plug#end()
+
+"Generic Stuff
+
+filetype plugin indent on
+set background=dark
+colorscheme gruvbox
+set cursorline
+map <C-n> :NERDTreeToggle<CR>
+
+augroup Group1
+    autocmd!
+    autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+augroup END
+
+let NERDTreeShowHidden=1
+set encoding=utf-8
+set fileencoding=utf-8
+nnoremap <leader>u :UndotreeShow<CR>
+set guicursor=
+set noshowmatch
+set relativenumber
+set nohlsearch
+set noerrorbells
+set tabstop=4 softtabstop=4
+set shiftwidth=4
+set expandtab
+set smartindent
+set nu
+set nowrap
+set smartcase
+set noswapfile
+set nobackup
+set undodir=~/.vim/undodir
+set undofile
+set incsearch
+set termguicolors
+set scrolloff=8
+set cmdheight=2
+set updatetime=50
+set shortmess+=c
+set backspace=indent,eol,start
+set showcmd
+set timeoutlen=1000
+set ttimeoutlen=0
+let mapleader = " "
+
+
+nnoremap <leader>w :w<CR>
+nnoremap <leader>x :x<CR>
+nnoremap <leader>q :q<CR>
+
+" Go specific
+"
+let g:go_gopls_enabled = 1
+let g:go_version_warning = 0
+let g:go_autodetect_gopath = 1
+
+"Airline
+
+let g:airline_theme='deus'
+
+" Terraform
+let g:terraform_fmt_on_save=1
+
+
