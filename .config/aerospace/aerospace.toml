@@ -1,0 +1,227 @@
+start-at-login = true
+
+after-login-command = []
+
+after-startup-command = [
+      'exec-and-forget borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=5.0'
+]
+
+exec-on-workspace-change = [
+  '/bin/bash',
+  '-c',
+  'sketchybar --trigger aerospace_workspace_changed FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
+]
+
+on-focused-monitor-changed = [
+  'move-mouse monitor-lazy-center'
+]
+
+on-focus-changed = [
+  'move-mouse window-lazy-center',
+  'exec-and-forget /bin/bash -c /opt/homebrew/bin/sketchybar --trigger front_app_switched',
+  'exec-and-forget sketchybar --trigger update_windows'
+]
+
+enable-normalization-flatten-containers = false
+enable-normalization-opposite-orientation-for-nested-containers = false
+
+accordion-padding = 30
+
+default-root-container-layout = 'tiles'
+
+default-root-container-orientation = 'auto'
+
+key-mapping.preset = 'qwerty'
+
+[gaps]
+#outer.bottom numbers have to match presentation.sh variables. built-in retina display is excluded from presentation mode, so this only works on external monitors.
+outer.bottom =        [{monitor.'^built-in retina display$' = 20 }, 40]
+outer.top =        [{monitor.'^built-in retina display$' = 30 }, 82]
+outer.left =       40
+outer.right =      40
+inner.horizontal = 40
+inner.vertical =   40
+
+[exec]                   # Again, you don't need to copy all config sections to your config.
+inherit-env-vars = true  # If you don't touch "exec" section,
+[exec.env-vars]          # it will fallback to "default-config.toml"
+PATH = '/opt/homebrew/bin:/opt/homebrew/sbin:${PATH}'
+
+[mode.main.binding]
+ctrl-space = 'layout floating tiling'
+ctrl-shift-r = [
+  'mode resize',
+  'exec-and-forget sketchybar --trigger send_message MESSAGE="RESIZE MODE" HOLD="true"'
+]
+
+ctrl-keypadMinus = 'resize smart -70'
+ctrl-keypadPlus = 'resize smart +70'
+
+ctrl-g = 'mode join'
+ctrl-q = [
+  'close --quit-if-last-window'
+]
+ctrl-w = []
+
+# All possible keys:
+# - Letters.        a, b, c, ..., z
+# - Numbers.        0, 1, 2, ..., 9
+# - Keypad numbers. keypad0, keypad1, keypad2, ..., keypad9
+# - F-keys.         f1, f2, ..., f20
+# - Special keys.   minus, equal, period, comma, slash, backslash, quote, semicolon, backtick,
+#                   leftSquareBracket, rightSquareBracket, space, enter, esc, backspace, tab
+# - Keypad special. keypadClear, keypadDecimalMark, keypadDivide, keypadEnter, keypadEqual,
+#                   keypadMinus, keypadMultiply, keypadPlus
+# - Arrows.         left, down, up, right
+
+# All possible modifiers: ctrl, alt, ctrl, shift
+
+#ctrl-enter = 'exec-and-forget open -n /Volumes/Macintosh\ HD/Applications/Alacritty.app'
+ctrl-enter = 'exec-and-forget open -n /Volumes/Macintosh\ HD/Applications/Ghostty.app'
+#ctrl-m = 'exec-and-forget open -n /Volumes/Macintosh\ HD/Applications/Marta.app'
+
+ctrl-shift-f = 'macos-native-fullscreen'
+ctrl-f = 'fullscreen'
+
+alt-g = 'split horizontal'
+alt-v = 'split vertical'
+
+ctrl-h = 'focus --boundaries all-monitors-outer-frame --boundaries-action stop left'
+ctrl-j = 'focus --boundaries all-monitors-outer-frame --boundaries-action stop down'
+ctrl-k = 'focus --boundaries all-monitors-outer-frame --boundaries-action stop up'
+ctrl-l = 'focus --boundaries all-monitors-outer-frame --boundaries-action stop right'
+ctrl-left = 'focus --boundaries all-monitors-outer-frame --boundaries-action stop left'
+ctrl-down = 'focus --boundaries all-monitors-outer-frame --boundaries-action stop down'
+ctrl-up = 'focus --boundaries all-monitors-outer-frame --boundaries-action stop up'
+ctrl-right = 'focus --boundaries all-monitors-outer-frame --boundaries-action stop right'
+
+ctrl-shift-h = 'move left'
+ctrl-shift-j = 'move down'
+ctrl-shift-k = 'move up'
+ctrl-shift-l = 'move right'
+ctrl-shift-left = 'move left'
+ctrl-shift-down = 'move down'
+ctrl-shift-up = 'move up'
+ctrl-shift-right = 'move right'
+
+ctrl-1 = 'workspace --auto-back-and-forth 1'  
+ctrl-2 = 'workspace --auto-back-and-forth 2'  
+ctrl-3 = 'workspace --auto-back-and-forth 3'  
+ctrl-4 = 'workspace --auto-back-and-forth 4'  
+ctrl-t = 'workspace --auto-back-and-forth t'  
+
+ctrl-shift-1 = 'move-node-to-workspace 1'
+ctrl-shift-2 = 'move-node-to-workspace 2'
+ctrl-shift-3 = 'move-node-to-workspace 3'
+ctrl-shift-4 = 'move-node-to-workspace 4'
+ctrl-shift-t = 'move-node-to-workspace t'
+
+ctrl-tab = 'workspace-back-and-forth'
+ctrl-p = 'move-workspace-to-monitor --wrap-around next'
+ctrl-shift-p = [
+  'move-node-to-monitor --wrap-around next',
+  'focus-monitor next --wrap-around' 
+]
+ctrl-alt-h = []
+
+ctrl-shift-s = [
+  'mode service',
+  'exec-and-forget sketchybar --trigger send_message MESSAGE="SERVICE MODE" HOLD="true"'
+]
+
+[mode.service.binding]
+esc = [
+ 'reload-config',
+ 'exec-and-forget sketchybar --trigger hide_message',
+ 'exec-and-forget sketchybar --reload',
+ 'mode main'
+]
+r = ['flatten-workspace-tree', 'mode main'] # reset layout
+
+s = [
+    'exec-and-forget cat ~/.config/aerospace/shrugstring| pbcopy',
+   'exec-and-forget sketchybar --trigger hide_message',
+   'mode main'
+] 
+
+b = [
+   'exec-and-forget ~/.config/aerospace/presentation.sh on',
+   'exec-and-forget sketchybar --bar height=0',
+   'exec-and-forget sketchybar --trigger hide_message',
+   'mode main'
+]
+shift-b = [
+   'exec-and-forget ~/.config/aerospace/presentation.sh off',
+   'exec-and-forget sketchybar --bar height=36',
+   'exec-and-forget sketchybar --trigger hide_message',
+   'mode main'
+]
+
+backspace = ['close-all-windows-but-current', 'mode main']
+
+[mode.resize.binding]
+keypadMinus = 'resize smart -70'
+keypadPlus = 'resize smart +70'
+h = ['resize width -64']
+j = ['resize height -64']
+k = ['resize height +64']
+l = ['resize width +64']
+esc = [
+  'mode main',
+  'exec-and-forget sketchybar --trigger hide_message'
+]
+enter = [
+  'mode main',
+  'exec-and-forget sketchybar --trigger hide_message'
+]
+
+[mode.join.binding]
+h = ['join-with left', 'mode main']
+j = ['join-with down', 'mode main']
+k = ['join-with up', 'mode main']
+l = ['join-with right', 'mode main']
+ctrl-h = ['join-with left', 'mode main']
+ctrl-alt-h = ['join-with left', 'mode main']
+
+[[on-window-detected]]
+if.app-id = 'org.qutebrowser.qutebrowser'
+run = ['layout tiling', 'move-node-to-workspace 3']
+
+[[on-window-detected]]
+if.app-id = 'md.obsidian'
+run = ['layout tiling', 'move-node-to-workspace 1']
+
+[[on-window-detected]]
+if.app-id = 'com.apple.finder'
+run = [
+'layout floating'
+]
+
+[[on-window-detected]]
+if.app-id = 'com.spotify.client'              
+run = ['move-node-to-workspace 9']  
+
+[[on-window-detected]]
+if.app-id = 'com.microsoft.teams2'              
+run = ['move-node-to-workspace 7']  
+
+[[on-window-detected]]
+if.app-id = 'com.microsoft.Outlook'              
+run = ['move-node-to-workspace 8']  
+
+[[on-window-detected]]
+if.app-id = 'com.bitwarden.desktop'              
+run = ['move-node-to-workspace 10']  
+
+[[on-window-detected]]
+if.app-id = 'com.microsoft.edgemac'              
+run = ['move-node-to-workspace 4']  
+
+[[on-window-detected]]
+if.app-id = 'com.microsoft.rdc.macos'              
+run = ['move-node-to-workspace 5']  
+
+[[on-window-detected]]
+if.app-id = 'org.jkiss.dbeaver.core.product'              
+run = ['move-node-to-workspace 6']  
+

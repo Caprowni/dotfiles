@@ -2,35 +2,37 @@ syntax on
 
 call plug#begin('~/.vim/plugged')
 
-"Zins
-Plug 'tpope/vim-fugitive'
 Plug 'mbbill/undotree'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'preservim/nerdtree'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'hashivim/vim-terraform'
-"Theming
+Plug 'lambdalisue/battery.vim'
+Plug 'edkolev/tmuxline.vim'
+Plug 'ryanoasis/vim-devicons'
+
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'gmoe/vim-espresso'
 Plug 'flazz/vim-colorschemes'
-Plug '/home/mpaulson/personal/vim-be-good'
+Plug 'junegunn/seoul256.vim'
+Plug 'pineapplegiant/spaceduck', { 'branch': 'main' }
 Plug 'morhetz/gruvbox'
+Plug 'challenger-deep-theme/vim', { 'as': 'challenger-deep' }
+Plug 'sainnhe/everforest'
+Plug 'ghifarit53/tokyonight-vim'
 
 call plug#end()
 
-"Generic Stuff
-
 filetype plugin indent on
+set termguicolors
+
+let g:tokyonight_style = 'storm'
+let g:tokyonight_enable_italic = 1
+
 set background=dark
-colorscheme gruvbox
+
 set cursorline
 map <C-n> :NERDTreeToggle<CR>
-
-augroup Group1
-    autocmd!
-    autocmd InsertLeave * if pumvisible() == 0|pclose|endif
-augroup END
 
 let NERDTreeShowHidden=1
 set encoding=utf-8
@@ -64,22 +66,21 @@ set timeoutlen=1000
 set ttimeoutlen=0
 let mapleader = " "
 
-
 nnoremap <leader>w :w<CR>
 nnoremap <leader>x :x<CR>
 nnoremap <leader>q :q<CR>
+nnoremap <leader>fm gg=G<CR>
 
 " Go specific
-"
 let g:go_gopls_enabled = 1
 let g:go_version_warning = 0
 let g:go_autodetect_gopath = 1
-
-"Airline
-
-let g:airline_theme='deus'
+let g:go_fmt_command = "goimports"
 
 " Terraform
 let g:terraform_fmt_on_save=1
 
+set guifont=SpaceMono_Nerd_Font:h14
+let g:airline_powerline_fonts = 1
+let g:airline_theme='murmur'
 

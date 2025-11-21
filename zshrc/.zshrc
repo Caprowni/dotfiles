@@ -1,20 +1,27 @@
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/lcaproni/.oh-my-zsh"
+export ZSH="$HOME/.config/zsh"
 
-
+eval "$(/opt/homebrew/bin/brew shellenv)"
 ## Theming ##
-ZSH_THEME="minimal"
+eval "$(oh-my-posh init zsh --config 'https://github.com/JanDeDobbeleer/oh-my-posh/blob/main/themes/poshmon.omp.json')"
 
-## Plugins ##
-plugins=(git)
+ # History
+HISTSIZE=5000
+HISTFILE=~/.zsh_history
+SAVEHIST=$HISTSIZE
+HISTDUP=erase
+setopt appendhistory
+setopt sharehistory
+setopt hist_ignore_space
+setopt hist_ignore_all_dups
+setopt hist_save_no_dups
+setopt hist_ignore_dups
+setopt hist_find_no_dups
 
-source $ZSH/oh-my-zsh.sh
+export EDITOR=nvim
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export PATH=$PATH:$GOPATH/bin
-
-### Python
-eval "$(pyenv init -)"
+export PATH=/usr/local/bin:$PATH:$GOPATH/bin:$PATH:/Users/lcaproni/bin:/opt/homebrew/opt/libpq/bin:$PATH:/opt/homebrew/opt/llvm/bin:$PATH
 
 # ----------------------
 # Git Aliases
@@ -29,7 +36,7 @@ alias gc='git commit'
 alias gcm='git commit --message'
 alias gcf='git commit --fixup'
 alias gco='git checkout'
-alias gcob='git checkout -b'
+alias gcobb='git checkout -b'
 alias gcom='git checkout master'
 alias gcos='git checkout staging'
 alias gcod='git checkout develop'
@@ -59,15 +66,33 @@ alias gsts='git stash save'
 # Git log find by commit message
 function glf() { git log --all --grep="$1"; }
 
-
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 
 # Random aliases for things #
-alias vim=/usr/local/bin/vim
-alias vi=/usr/local/bin/vim
-alias python=python3
-export PYTHONPATH=$PYTHONPATH:/home/lcaproni/.pyenv/versions/3.8.2/lib/python3.8/site-packages
 alias k=kubectl
+alias open_pr="gh pr view --web"
+alias create_pr='gh pr create -a "@me" -f'
+alias ctags=/usr/local/bin/ctags
+alias l="exa -l -g --icons"
+alias ll="ls -lah"
+alias vim=nvim
+alias vi=nvim
 
+function npr() { gh pr create -a "@me" -f -l "$@"; gh pr view --web }
+
+# Color Scheme
+export BLACK=0xff181819
+export WHITE=0xffe2e2e3
+export RED=0xfffc5d7c
+export GREEN=0xff9ed072
+export BLUE=0xff76cce0
+export YELLOW=0xffe7c664
+export ORANGE=0xfff39660
+export MAGENTA=0xffb39df3
+export GREY=0xff7f8490
+export TRANSPARENT=0x00000000
+export BG0=0xff2c2e34
+export BG1=0xff363944
+export BG2=0xff414550
 
